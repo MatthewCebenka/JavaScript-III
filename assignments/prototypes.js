@@ -7,7 +7,7 @@
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -32,12 +32,12 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
@@ -104,7 +104,82 @@
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
 
-  // Stretch task: 
-  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+// Stretch task: 
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+// TK codepen video follow along
+
+function Fruit(attrs) {
+    this.type = attrs.type;
+    this.name = attrs.name;
+    this.isRipe = attrs.isRipe;
+    this.calories = attrs.calories;
+};
+
+Fruit.prototype.shipped = function(destination) {
+    console.log(`Shipping ${this.name} to ${destination}`);
+}
+
+Fruit.prototype.calculateCals = function(destination) {
+    console.log(`Calories in ${this.name} are ${this.calories * 200}`);
+}
+
+const banana = new Fruit({
+    type: 'tree',
+    name: 'banana',
+    isRipe: true,
+    calories: 100
+});
+
+console.log(banana.shipped('Hawaii'));
+console.log(banana.calculateCals(50));
+
+function Banana(bannaAttrs) {
+    Fruit.call(this, bannaAttrs);
+    this.doMonkeysLikeIt = bannaAttrs.doMonkeysLikeIt;
+}
+Banana.prototype = Object.create(Fruit.prototype);
+
+Banana.prototype.checkIfMonkeysLikeIt = function() {
+    if (this.doMonkeysLikeIt) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+const newBanana = new Banana({
+    doMonkeysLikeIt: true,
+    type: "Tree",
+    name: "Banana",
+    isRipe: false,
+    calories: 0.1
+});
+
+function Kiwi(kiwiAttrs) {
+    Fruit.call(this, kiwiAttrs)
+    this.isFuzzy = kiwiAttrs.isFuzzy;
+}
+Kiwi.prototype = Object.create(Fruit.prototype);
+
+Kiwi.prototype.checkIfFuzzy = function() {
+    if (this.isFuzzy) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const newKiwi = new Kiwi({
+    isFuzzy: true,
+    type: "Tree",
+    name: "Kiwi",
+    isRipe: false,
+    calories: 0.7
+});
+
+console.log(newBanana.shipped("Alaska"))
+console.log(newKiwi.shipped("Colorado"))
